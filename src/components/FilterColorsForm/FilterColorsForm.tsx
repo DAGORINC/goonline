@@ -114,8 +114,9 @@ class FilterColorsForm extends React.Component<FilterColorsFormProps> {
                 <div className={styles.bottomContainer}>
 
                     <div className={styles.filtersName}>Filters</div>
-                    <div className={styles.filtersContainer}>
 
+
+                    <div className={styles.filtersContainer}>
                         <div onClick={this.changeRedFilterHandler} className={styles.filterPart}>
                             <input checked={this.state.redFilter} onClick={this.changeRedFilterHandler} type='checkbox' /> Red {'>'} 50%
                         </div>
@@ -133,7 +134,9 @@ class FilterColorsForm extends React.Component<FilterColorsFormProps> {
                         </div>
                     </div>
 
+
                     <div className={styles.colorsName}>Colors:</div>
+
 
                     <div className={styles.colorsContainer}>
 
