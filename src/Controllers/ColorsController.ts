@@ -31,7 +31,6 @@ const getAllColors = async (): Promise<GetAllColors> => {
 
     const result: GetAllColors = {
         colors: colors.map((color, index) => ({ ...color, number: index }))
-        // dodanie do każdego elementu tablicy kolorów pola "index" 
     };
 
 
@@ -42,10 +41,8 @@ const getAllColors = async (): Promise<GetAllColors> => {
 const removeColor = async (colorId: number) => {
     const colors: ColorDto[] = JSON.parse(localStorage.getItem('colors') || '[]');
 
-    // używamy metody map do przypisania nowych numerów do kolorów
     const colors2 = colors.map((color, index) => ({ ...color, number: index }));
 
-    // filtrujemy kolory poza kolorem o określonym numerze
     const colorsAfterRemove = colors2.filter(color => color.number !== colorId && color.number !== undefined);
 
     localStorage.setItem('colors', JSON.stringify(colorsAfterRemove));
