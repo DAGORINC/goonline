@@ -1,0 +1,58 @@
+@import '../../variables.scss';
+
+.container{
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $grey;
+    min-height: 240px;
+}
+
+.addColor{
+    color: $orange;
+    font-size: 30px;
+    font-weight: lighter;
+    margin-bottom: 15px;
+    user-select: none;
+}
+
+.input{
+    height: 38px;
+    width: 500px;
+    max-width: 32vw;
+    padding: 3px 15px;
+    border: none;
+    background-color: $orange;
+    border-radius: 5px;
+    color: $white;
+    transition: all 2s;
+}
+
+.inputAndButton{
+    display: flex;
+    max-width: 96vw;
+}
+
+.button{
+    border: none;
+    margin-left: 5px;
+    padding: 13px 28px;
+    background-color: $darkOrange;
+    border: 2px solid $grey;
+    color: $grey;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+.bottomContainer{
+    background-color: $white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.button:hover{
+    cursor: pointer;
+    background-color: $orange;
+    color: $white;
+}
