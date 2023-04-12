@@ -29,7 +29,9 @@ class FilterColorsForm extends React.Component<FilterColorsFormProps> {
     filterColors = () => {
         const newColorsPackData: ColorDto[] = [];
         const colors = this.props.colors;
+
         for (const singleColor of colors) {
+
             let displayColor = true;
             const red: number = parseInt(singleColor.colorValue.substring(1, 3), 16);
             const green: number = parseInt(singleColor.colorValue.substring(3, 5), 16);
@@ -45,6 +47,7 @@ class FilterColorsForm extends React.Component<FilterColorsFormProps> {
 
             displayColor && newColorsPackData.push(singleColor);
         }
+
         this.setState({ colorsToDisplay: newColorsPackData });
     }
 
@@ -79,9 +82,9 @@ class FilterColorsForm extends React.Component<FilterColorsFormProps> {
     getSaturation = (color: string): number => {
         const hex = color.slice(1);
         const rgb = [
-          parseInt(hex.substring(0, 2), 16) / 255,
-          parseInt(hex.substring(2, 4), 16) / 255, 
-          parseInt(hex.substring(4, 6), 16) / 255,
+            parseInt(hex.substring(0, 2), 16) / 255,
+            parseInt(hex.substring(2, 4), 16) / 255,
+            parseInt(hex.substring(4, 6), 16) / 255,
         ];
         const [r, g, b] = rgb;
         const max = Math.max(r, g, b);
@@ -90,10 +93,10 @@ class FilterColorsForm extends React.Component<FilterColorsFormProps> {
         const chroma = max - min;
         let saturation = 0;
         if (chroma !== 0) {
-          saturation = chroma / (1 - Math.abs(2 * lightness - 1));
+            saturation = chroma / (1 - Math.abs(2 * lightness - 1));
         }
         return Math.round(saturation * 100);
-      }
+    }
 
     componentDidMount() {
         this.filterColors();
@@ -130,7 +133,8 @@ class FilterColorsForm extends React.Component<FilterColorsFormProps> {
                         </div>
 
                         <div onClick={this.changeSaturationFilterHandler} className={styles.filterPart}>
-                            <input checked={this.state.saturationFilter} onClick={this.changeSaturationFilterHandler} type='checkbox' /> Saturation {'>'} 50%
+                            <input
+                                checked={this.state.saturationFilter} onClick={this.changeSaturationFilterHandler} type='checkbox' /> Saturation {'>'} 50%
                         </div>
                     </div>
 

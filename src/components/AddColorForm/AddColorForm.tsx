@@ -29,7 +29,9 @@ const AddColorForm: FC<AddColorFormProps> = (props) => {
         const inputValueCheck = e.target.value.substring(1) as string;
         const allowedCharacters = /[a-fA-F0-9]/;
 
-        if ((inputValue.length === 1 && !inputValue.includes('#')) || // Check if the first character is #
+        const firstChar = inputValue.split('')[0];
+
+        if ((inputValue.length === 1 && firstChar !== '#') || // Check if the first character is #
             inputValueCheck.length > 6 || // Check the length of the entered color
             ((Array.from(inputValueCheck).some((char) => !char.match(allowedCharacters))) && inputValueCheck.length !== 0)) { // Check if all characters after # are from the allowed range
             e.preventDefault();
@@ -71,13 +73,13 @@ const AddColorForm: FC<AddColorFormProps> = (props) => {
 
                 <div className={styles.inputAndButton}>
                     <div>
-                        <input 
-                        type='text' 
-                        value={color} 
-                        className={styles.input} 
-                        placeholder='#' 
-                        onChange={colorInputHandler}
-                        onKeyDown={e => e.key === 'Enter' && onSubmit()}
+                        <input
+                            type='text'
+                            value={color}
+                            className={styles.input}
+                            placeholder='#'
+                            onChange={colorInputHandler}
+                            onKeyDown={e => e.key === 'Enter' && onSubmit()}
                         />
                     </div>
 

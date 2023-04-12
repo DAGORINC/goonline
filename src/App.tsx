@@ -5,11 +5,11 @@ import FilterColorsForm from './components/FilterColorsForm/FilterColorsForm';
 import ColorsController, { ColorDto } from './Controllers/ColorsController';
 import predefinedColors from './components/FilterColorsForm/predefinedColors';
 
-function App() {
+const App = () => {
 
   const [colors, setColors] = useState<ColorDto[]>([]);
-  
-  
+
+
   const getAllColors = useCallback(async () => {
     const res = await ColorsController.getAllColors();
     const userColors: ColorDto[] = res.colors;
@@ -31,7 +31,7 @@ function App() {
     setColors(allColors);
 
   }, [
-    
+
   ]);
 
 
