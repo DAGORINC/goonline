@@ -68,7 +68,7 @@ const AddColorForm: FC<AddColorFormProps> = (props) => {
             <div className={styles.bottomContainer}>
 
                 <div className={styles.addColor}>
-                    Type color:
+                    Add color:
                 </div>
 
                 <div className={styles.inputAndButton}>
