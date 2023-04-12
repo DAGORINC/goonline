@@ -1,6 +1,6 @@
 @import '../../variables.scss';
 
-.container{
+.container {
     height: 60vh;
     display: flex;
     justify-content: center;
@@ -9,7 +9,7 @@
     min-height: 240px;
 }
 
-.addColor{
+.addColor {
     color: $orange;
     font-size: 30px;
     font-weight: lighter;
@@ -17,7 +17,7 @@
     user-select: none;
 }
 
-.input{
+.input {
     height: 38px;
     width: 500px;
     max-width: 32vw;
@@ -29,12 +29,12 @@
     transition: all 2s;
 }
 
-.inputAndButton{
+.inputAndButton {
     display: flex;
     max-width: 96vw;
 }
 
-.button{
+.button {
     border: none;
     margin-left: 5px;
     padding: 13px 28px;
@@ -45,13 +45,13 @@
     transition: all 0.5s;
 }
 
-.bottomContainer{
+.bottomContainer {
     background-color: $white;
     padding: 20px;
     border-radius: 5px;
 }
 
-.button:hover{
+.button:hover {
     cursor: pointer;
     background-color: $orange;
     color: $white;

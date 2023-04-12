@@ -46,7 +46,7 @@ const removeColor = async (colorId: number) => {
     const colorsAfterRemove = colors2.filter(color => color.number !== colorId && color.number !== undefined);
 
     localStorage.setItem('colors', JSON.stringify(colorsAfterRemove));
-  };
+};
 
 
 const ColorsController = {
