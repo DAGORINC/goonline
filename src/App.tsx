@@ -54,6 +54,7 @@ const App = () => {
   return (
     <div className="App">
 
+
       <AddColorForm onGetAllColors={getAllColors} />
 
       <FilterColorsForm

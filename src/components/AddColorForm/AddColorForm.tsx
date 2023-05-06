@@ -1,98 +1,95 @@
 import styles from './AddColorForm.module.scss'
-import { FC, useCallback, useState } from 'react';
 import ColorsController, { ColorDto } from '../../Controllers/ColorsController';
+import React from 'react';
+import colorsImage from '../../assets/images/colors.png';
 
-interface AddColorFormProps {
-    onGetAllColors: () => void;
-}
+type Props = {
+  onGetAllColors: () => void;
+};
 
-const AddColorForm: FC<AddColorFormProps> = (props) => {
+type State = {
+  color: string;
+};
 
-    const [color, setColor] = useState<string>('')
+class AddColorForm extends React.Component<Props, State> {
+  state: State = {
+    color: '',
+  };
 
+  private hexRgbValidation = /^#([a-fA-F0-9]{6})$/;
 
-    const validation = useCallback((): boolean => {
+  private validation = (): boolean => {
+    const isValidate = this.state.color.match(this.hexRgbValidation);
+    return Boolean(isValidate);
+  };
 
-        const hexRgbValidation = /^#([a-fA-F0-9]{6})$/;
-        const isValidate = color.match(hexRgbValidation);
+  private colorInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value as string;
+    const inputValueCheck = e.target.value.substring(1) as string;
+    const allowedCharacters = /[a-fA-F0-9]/;
+    const firstChar = inputValue.split('')[0];
 
-        if (isValidate) return true;
+    if (
+      (inputValue.length === 1 && firstChar !== '#') ||
+      inputValueCheck.length > 6 ||
+      (Array.from(inputValueCheck).some((char) => !char.match(allowedCharacters)) &&
+        inputValueCheck.length !== 0)
+    ) {
+      e.preventDefault();
+      return;
+    }
 
-        return false;
-    }, [
-        color
-    ])
+    this.setState({ color: e.target.value });
+  };
 
-    const colorInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  private onSubmit = async () => {
+    const { color } = this.state;
 
-        const inputValue = e.target.value as string;
-        const inputValueCheck = e.target.value.substring(1) as string;
-        const allowedCharacters = /[a-fA-F0-9]/;
-
-        const firstChar = inputValue.split('')[0];
-
-        if ((inputValue.length === 1 && firstChar !== '#') || // Check if the first character is #
-            inputValueCheck.length > 6 || // Check the length of the entered color
-            ((Array.from(inputValueCheck).some((char) => !char.match(allowedCharacters))) && inputValueCheck.length !== 0)) { // Check if all characters after # are from the allowed range
-            e.preventDefault();
-            return;
-        }
-
-        setColor(e.target.value)
+    const data: ColorDto = {
+      colorValue: color.toUpperCase(),
+      createdByUser: true,
     };
 
+    if (!this.validation()) {
+      return;
+    }
 
-    const onSubmit = useCallback(async () => {
-        const data: ColorDto = {
-            colorValue: color.toUpperCase(),
-            createdByUser: true,
-        }
+    await ColorsController.addNewColor(data);
+    this.props.onGetAllColors();
+    this.setState({ color: '#' });
+  };
 
-        if (!validation()) {
-            return;
-        }
-
-        await ColorsController.addNewColor(data)
-        props.onGetAllColors();
-        setColor('#');
-    }, [
-        color,
-        props,
-        validation,
-    ])
-
+  render() {
+    const { color } = this.state;
 
     return (
+      <>
+        <img src={colorsImage} style={{ height: '80vh' }} alt='theme'/>
         <div className={styles.container}>
-
-            <div className={styles.bottomContainer}>
-
-                <div className={styles.addColor}>
-                    Add color:
-                </div>
-
-                <div className={styles.inputAndButton}>
-                    <div>
-                        <input
-                            type='text'
-                            value={color}
-                            className={styles.input}
-                            placeholder='#'
-                            onChange={colorInputHandler}
-                            onKeyDown={e => e.key === 'Enter' && onSubmit()}
-                        />
-                    </div>
-
-                    <div>
-                        <button onClick={onSubmit} className={styles.button}>
-                            Submit
-                        </button>
-                    </div>
-                </div>
+          <div className={styles.bottomContainer}>
+            <div className={styles.addColor}>Add color:</div>
+            <div className={styles.inputAndButton}>
+              <div>
+                <input
+                  type="text"
+                  value={color}
+                  className={styles.input}
+                  placeholder="#"
+                  onChange={this.colorInputHandler}
+                  onKeyDown={(e) => e.key === 'Enter' && this.onSubmit()}
+                />
+              </div>
+              <div>
+                <button onClick={this.onSubmit} className={styles.button}>
+                  Submit
+                </button>
+              </div>
             </div>
-
+          </div>
         </div>
-    )
+      </>
+    );
+  }
 }
 
 export default AddColorForm;
